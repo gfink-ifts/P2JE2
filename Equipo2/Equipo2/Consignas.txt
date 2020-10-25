@@ -1,0 +1,19 @@
+﻿Casa de informatica.
+
+Ventas
+- de productos
+- de servicios / Tratarlo como productos.
+- Control de stock
+- AB
+
+Clientes
+- ABM
+
+Productos
+- ABM
+- Control de Stock
+
+reporte
+- grilla con las ventas diarias y por mes
+
+
