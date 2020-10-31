@@ -16,5 +16,35 @@ namespace Equipo2
         {
             InitializeComponent();
         }
+
+        private void button_reportes_Click(object sender, EventArgs e)
+        {
+            Reportes form = new Reportes();
+            form.Show();
+        }
+
+        private void button_cerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+            GC.Collect();
+        }
+
+        private void button_cliente_Click(object sender, EventArgs e)
+        {
+            Clientes form = new Clientes();
+            form.Show();
+        }
+
+        private void button_productos_Click(object sender, EventArgs e)
+        {
+            Productos form = new Productos();
+            form.Show();
+        }
+
+        private void button_ventas_Click(object sender, EventArgs e)
+        {
+            Ventas form = new Ventas();
+            form.Show();
+        }
     }
 }
