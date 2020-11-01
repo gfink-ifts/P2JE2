@@ -16,5 +16,11 @@ namespace Equipo2
         {
             InitializeComponent();
         }
+
+        private void button_tipoProducto_Click(object sender, EventArgs e)
+        {
+            Tipo_Producto form = new Tipo_Producto();
+            form.Show();
+        }
     }
 }
