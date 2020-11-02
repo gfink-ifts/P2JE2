@@ -57,7 +57,131 @@ namespace Equipo2
 
         private void button_actualizar_Click(object sender, EventArgs e)
         {
+            string descripcion = "";
+            int cantidad = 0;
+            float precio = 0;
+            int idprod = -1;
 
+            if (VerificarTextbox())
+            {
+                if (checkBox_modificarProducto.Checked)
+                {
+                    descripcion = textBox_descripcion.Text;
+                    cantidad = int.Parse(textBox_cantidad.Text);
+                    precio = float.Parse(textBox_precio.Text);
+                    idprod = int.Parse(comboBox_Producto.SelectedValue.ToString());
+                    int idtipo = int.Parse(comboBox_tipo.SelectedValue.ToString());
+                    if (InsertarRegistro(descripcion, cantidad, precio, idprod, idtipo))
+                    {
+                        MessageBox.Show("Alta Exitosa.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LlenarComboTipo();
+                        LlenarComboProductos();
+                        IniciarlizarFormularios();
+                        LlenarGrilla();
+                    }
+                    else {
+                        MessageBox.Show("Error en carga.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        LlenarComboTipo();
+                        LlenarComboProductos();
+                        IniciarlizarFormularios();
+                        LlenarGrilla();
+                    }
+
+                }
+                else {
+                    descripcion = textBox_descripcion.Text;
+                    cantidad = int.Parse(textBox_cantidad.Text);
+                    precio = float.Parse(textBox_precio.Text);
+                    int idtipo = int.Parse(comboBox_tipo.SelectedValue.ToString());
+                    if (InsertarRegistro(descripcion, cantidad, precio, idprod, idtipo))
+                    {
+                        MessageBox.Show("Alta Exitosa.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LlenarComboTipo();
+                        LlenarComboProductos();
+                        IniciarlizarFormularios();
+                        LlenarGrilla();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error en carga.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        LlenarComboTipo();
+                        LlenarComboProductos();
+                        IniciarlizarFormularios();
+                        LlenarGrilla();
+                    }
+
+                }
+
+            }
+            else {
+                MessageBox.Show("Error en los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool InsertarRegistro(string descripcion, int cantidad, float precio, int idProd, int idTipo) {
+            SqlCommand comando;
+
+            if (idProd == -1)
+            {
+                string insertar = "insert into productos (descripcion,idtipo,cantidad,precio) " +
+                    "values (@descripcion,@idtipo,@cantidad,@precio)";
+                Abrir();
+                comando = new SqlCommand(insertar, conexion);
+                comando.Parameters.AddWithValue("@descripcion", descripcion);
+                comando.Parameters.AddWithValue("@idtipo", idTipo);
+                comando.Parameters.AddWithValue("@cantidad", cantidad);
+                comando.Parameters.AddWithValue("@precio", precio);
+
+                int resultado = comando.ExecuteNonQuery();
+                Cerrar();
+                if (resultado == 1)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+                
+
+            }
+            else
+            {
+                string actualizacion = "update productos set descripcion=@descripcion, idtipo=@idTipo, cantidad=@cantidad, precio=@precio" +
+                    " where idProducto = @idProd";
+                Abrir();
+                comando = new SqlCommand(actualizacion, conexion);
+                comando.Parameters.AddWithValue("@descripcion", descripcion);
+                comando.Parameters.AddWithValue("@cantidad", cantidad);
+                comando.Parameters.AddWithValue("@precio", precio);
+                comando.Parameters.AddWithValue("@idProd", idProd);
+                comando.Parameters.AddWithValue("@idTipo", idTipo);
+
+                int resultado = comando.ExecuteNonQuery();
+                Cerrar();
+                if (resultado == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
+        private bool VerificarTextbox() {
+
+            int cantidad = 0;
+            float precio = 0;
+
+            if (!string.IsNullOrWhiteSpace(textBox_descripcion.Text) && int.TryParse(textBox_cantidad.Text, out cantidad) && float.TryParse(textBox_precio.Text, out precio))
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
 
@@ -92,9 +216,18 @@ namespace Equipo2
             comboBox_Producto.DisplayMember = "descripcion";
         }
 
-        private void LlenarGrilla() { 
-        
-        
+        private void LlenarGrilla() {
+            SqlDataAdapter da;
+            DataTable dt = new DataTable();
+            string consulta = "select tp.descripcion as Tipo, p.descripcion as Descripcion, p.cantidad, p.precio " +
+                "from Productos as p, Tipo_Producto as tp " +
+                "where p.idTipo = tp.idTipo";
+            Abrir();
+            da = new SqlDataAdapter(consulta, conexion);
+            da.Fill(dt);
+            Cerrar();
+            dataGridView_productos.DataSource = dt;
+
         }
 
         private void IniciarlizarFormularios() {
@@ -110,10 +243,17 @@ namespace Equipo2
             if (checkBox_modificarProducto.Checked)
             {
                 comboBox_Producto.Enabled = true;
+                button_actualizar.Text = "Modificar Producto";
             }
             else {
                 comboBox_Producto.Enabled = false;
+                button_actualizar.Text = "Nuevo Producto";
             }
+        }
+
+        private void button_mostrar_Click(object sender, EventArgs e)
+        {
+            LlenarGrilla();
         }
     }
 }

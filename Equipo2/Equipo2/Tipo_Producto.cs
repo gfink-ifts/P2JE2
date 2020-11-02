@@ -150,5 +150,10 @@ namespace Equipo2
                 comboBox_listado.Enabled = false;
             }
         }
+
+        private void comboBox_listado_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

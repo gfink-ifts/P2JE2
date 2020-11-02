@@ -31,7 +31,8 @@
             this.button_tipoProducto = new System.Windows.Forms.Button();
             this.button_cerrar = new System.Windows.Forms.Button();
             this.groupBox_modificarProducto = new System.Windows.Forms.GroupBox();
-            this.checkBox_modificarProducto = new System.Windows.Forms.CheckBox();
+            this.label_cantidad = new System.Windows.Forms.Label();
+            this.textBox_cantidad = new System.Windows.Forms.TextBox();
             this.textBox_descripcion = new System.Windows.Forms.TextBox();
             this.label_descripcion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,12 +42,11 @@
             this.label_tipoProducto = new System.Windows.Forms.Label();
             this.button_actualizar = new System.Windows.Forms.Button();
             this.comboBox_tipo = new System.Windows.Forms.ComboBox();
-            this.label_cantidad = new System.Windows.Forms.Label();
-            this.textBox_cantidad = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.checkBox_modificarProducto = new System.Windows.Forms.CheckBox();
+            this.dataGridView_productos = new System.Windows.Forms.DataGridView();
             this.button_mostrar = new System.Windows.Forms.Button();
             this.groupBox_modificarProducto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_productos)).BeginInit();
             this.SuspendLayout();
             // 
             // button_tipoProducto
@@ -90,16 +90,21 @@
             this.groupBox_modificarProducto.TabStop = false;
             this.groupBox_modificarProducto.Text = "Productos";
             // 
-            // checkBox_modificarProducto
+            // label_cantidad
             // 
-            this.checkBox_modificarProducto.AutoSize = true;
-            this.checkBox_modificarProducto.Location = new System.Drawing.Point(20, 30);
-            this.checkBox_modificarProducto.Name = "checkBox_modificarProducto";
-            this.checkBox_modificarProducto.Size = new System.Drawing.Size(115, 17);
-            this.checkBox_modificarProducto.TabIndex = 0;
-            this.checkBox_modificarProducto.Text = "Modificar Producto";
-            this.checkBox_modificarProducto.UseVisualStyleBackColor = true;
-            this.checkBox_modificarProducto.CheckedChanged += new System.EventHandler(this.checkBox_modificarProducto_CheckedChanged);
+            this.label_cantidad.AutoSize = true;
+            this.label_cantidad.Location = new System.Drawing.Point(26, 200);
+            this.label_cantidad.Name = "label_cantidad";
+            this.label_cantidad.Size = new System.Drawing.Size(52, 13);
+            this.label_cantidad.TabIndex = 19;
+            this.label_cantidad.Text = "Cantidad:";
+            // 
+            // textBox_cantidad
+            // 
+            this.textBox_cantidad.Location = new System.Drawing.Point(110, 193);
+            this.textBox_cantidad.Name = "textBox_cantidad";
+            this.textBox_cantidad.Size = new System.Drawing.Size(100, 20);
+            this.textBox_cantidad.TabIndex = 20;
             // 
             // textBox_descripcion
             // 
@@ -162,9 +167,9 @@
             // 
             // button_actualizar
             // 
-            this.button_actualizar.Location = new System.Drawing.Point(50, 276);
+            this.button_actualizar.Location = new System.Drawing.Point(29, 276);
             this.button_actualizar.Name = "button_actualizar";
-            this.button_actualizar.Size = new System.Drawing.Size(140, 23);
+            this.button_actualizar.Size = new System.Drawing.Size(181, 23);
             this.button_actualizar.TabIndex = 14;
             this.button_actualizar.Text = "Nuevo Producto";
             this.button_actualizar.UseVisualStyleBackColor = true;
@@ -179,29 +184,27 @@
             this.comboBox_tipo.Size = new System.Drawing.Size(100, 21);
             this.comboBox_tipo.TabIndex = 15;
             // 
-            // label_cantidad
+            // checkBox_modificarProducto
             // 
-            this.label_cantidad.AutoSize = true;
-            this.label_cantidad.Location = new System.Drawing.Point(26, 200);
-            this.label_cantidad.Name = "label_cantidad";
-            this.label_cantidad.Size = new System.Drawing.Size(52, 13);
-            this.label_cantidad.TabIndex = 19;
-            this.label_cantidad.Text = "Cantidad:";
+            this.checkBox_modificarProducto.AutoSize = true;
+            this.checkBox_modificarProducto.Location = new System.Drawing.Point(20, 30);
+            this.checkBox_modificarProducto.Name = "checkBox_modificarProducto";
+            this.checkBox_modificarProducto.Size = new System.Drawing.Size(115, 17);
+            this.checkBox_modificarProducto.TabIndex = 0;
+            this.checkBox_modificarProducto.Text = "Modificar Producto";
+            this.checkBox_modificarProducto.UseVisualStyleBackColor = true;
+            this.checkBox_modificarProducto.CheckedChanged += new System.EventHandler(this.checkBox_modificarProducto_CheckedChanged);
             // 
-            // textBox_cantidad
+            // dataGridView_productos
             // 
-            this.textBox_cantidad.Location = new System.Drawing.Point(110, 193);
-            this.textBox_cantidad.Name = "textBox_cantidad";
-            this.textBox_cantidad.Size = new System.Drawing.Size(100, 20);
-            this.textBox_cantidad.TabIndex = 20;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(280, 13);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(508, 367);
-            this.dataGridView1.TabIndex = 3;
+            this.dataGridView_productos.AllowUserToAddRows = false;
+            this.dataGridView_productos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_productos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_productos.Location = new System.Drawing.Point(280, 13);
+            this.dataGridView_productos.Name = "dataGridView_productos";
+            this.dataGridView_productos.RowHeadersVisible = false;
+            this.dataGridView_productos.Size = new System.Drawing.Size(508, 367);
+            this.dataGridView_productos.TabIndex = 3;
             // 
             // button_mostrar
             // 
@@ -211,6 +214,7 @@
             this.button_mostrar.TabIndex = 4;
             this.button_mostrar.Text = "Mostrar Productos";
             this.button_mostrar.UseVisualStyleBackColor = true;
+            this.button_mostrar.Click += new System.EventHandler(this.button_mostrar_Click);
             // 
             // Productos
             // 
@@ -218,7 +222,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button_mostrar);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView_productos);
             this.Controls.Add(this.groupBox_modificarProducto);
             this.Controls.Add(this.button_cerrar);
             this.Controls.Add(this.button_tipoProducto);
@@ -226,7 +230,7 @@
             this.Text = "Productos";
             this.groupBox_modificarProducto.ResumeLayout(false);
             this.groupBox_modificarProducto.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_productos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -248,7 +252,7 @@
         private System.Windows.Forms.Button button_actualizar;
         private System.Windows.Forms.ComboBox comboBox_tipo;
         private System.Windows.Forms.CheckBox checkBox_modificarProducto;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_productos;
         private System.Windows.Forms.Button button_mostrar;
     }
 }

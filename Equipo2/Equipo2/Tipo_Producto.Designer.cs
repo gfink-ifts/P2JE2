@@ -57,6 +57,7 @@
             this.comboBox_listado.Name = "comboBox_listado";
             this.comboBox_listado.Size = new System.Drawing.Size(120, 21);
             this.comboBox_listado.TabIndex = 1;
+            this.comboBox_listado.SelectedValueChanged += new System.EventHandler(this.comboBox_listado_SelectedValueChanged);
             // 
             // textBox_descripcion
             // 
