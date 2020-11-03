@@ -255,5 +255,35 @@ namespace Equipo2
         {
             LlenarGrilla();
         }
+
+        private void comboBox_Producto_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (checkBox_modificarProducto.Checked)
+            {
+                int producto = int.Parse(comboBox_Producto.SelectedValue.ToString());
+                SqlDataAdapter da;
+                DataTable dt = new DataTable();
+                Abrir();
+                string consulta = "select p.descripcion as Descripcion, p.idtipo as Tipo, p.cantidad as cantidad, p.precio as Precio from productos as p " +
+                    "where p.idproducto = @producto";
+
+                da = new SqlDataAdapter(consulta, conexion);
+                da.SelectCommand.Parameters.AddWithValue("@producto", producto);
+                da.Fill(dt);
+                Cerrar();
+
+                if (dt.Rows.Count > 0)
+                {
+                    textBox_descripcion.Text = dt.Rows[0][0].ToString();
+                    textBox_precio.Text = dt.Rows[0][3].ToString();
+                    comboBox_tipo.SelectedValue = dt.Rows[0][1].ToString();
+                    textBox_cantidad.Text = dt.Rows[0][2].ToString();
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró información");
+                }
+            }
+        }
     }
 }

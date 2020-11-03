@@ -145,15 +145,39 @@ namespace Equipo2
             if (checkBox_Modificar.Checked)
             {
                 comboBox_listado.Enabled = true;
+                button_agregar.Text = "Actualizar";
             }
             else {
                 comboBox_listado.Enabled = false;
+                button_agregar.Text = "Agregar";
             }
         }
 
         private void comboBox_listado_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (checkBox_Modificar.Checked)
+            {
+                int id = int.Parse(comboBox_listado.SelectedValue.ToString());
+                SqlDataAdapter da;
+                DataTable dt = new DataTable();
+                Abrir();
+                string consulta = "select tp.descripcion as Descripcion from tipo_producto as tp " +
+                    "where tp.idtipo = @idtipo";
 
+                da = new SqlDataAdapter(consulta, conexion);
+                da.SelectCommand.Parameters.AddWithValue("@idtipo", id);
+                da.Fill(dt);
+                Cerrar();
+
+                if (dt.Rows.Count > 0)
+                {
+                    textBox_descripcion.Text = dt.Rows[0][0].ToString();
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró información");
+                }
+            }
         }
     }
 }

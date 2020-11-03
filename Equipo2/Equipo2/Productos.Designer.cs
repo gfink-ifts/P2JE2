@@ -148,6 +148,7 @@
             this.comboBox_Producto.Name = "comboBox_Producto";
             this.comboBox_Producto.Size = new System.Drawing.Size(100, 21);
             this.comboBox_Producto.TabIndex = 17;
+            this.comboBox_Producto.SelectedValueChanged += new System.EventHandler(this.comboBox_Producto_SelectedValueChanged);
             // 
             // textBox_precio
             // 
