@@ -105,6 +105,9 @@
     <EmbeddedResource Include="Tipo_Producto.resx">
       <DependentUpon>Tipo_Producto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ventas.resx">
+      <DependentUpon>Ventas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="BaseDeDatos\BaseDeDatos.bak" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
