@@ -43,12 +43,120 @@ namespace Equipo2
         private void button_nuevaVenta_Click(object sender, EventArgs e)
         {
             int cantidad;
-            if (int.TryParse(textBox_cantprod.Text, out cantidad) && comboBox_productos.SelectedValue != null && label_stock.Text != "-")
+            int stock;
+            if (VerificarStock() && VerificarCliente())
             {
+                cantidad = int.Parse(textBox_cantprod.Text);
+                int idCli = int.Parse(label_nroCli.Text);
+                int idprod = int.Parse(comboBox_productos.SelectedValue.ToString());
+                stock = int.Parse(label_stock.Text);
+                if (InsertarVenta(cantidad, idCli, idprod,stock))
+                {
+                    MessageBox.Show("Alta Exitosa.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Limpiar();
+                    LlenarGrilla();
+                    LlenarComboProductos();
+                }
+                else {
+                    MessageBox.Show("Error al registrar la venta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
             }
+
+        }
+
+        private bool InsertarVenta(int cantidad, int idCliente,int idProd, int stock) {
+            SqlCommand comando;
+
+                string insertar = "insert into ventas (fechaventa,idcliente,idproducto,cantidad) " +
+                    "values (@fecha,@idcliente,@idprod,@cantidad)";
+                Abrir();
+
+                comando = new SqlCommand(insertar, conexion);
+                comando.Parameters.AddWithValue("@fecha", DateTime.Now.ToShortDateString());
+                comando.Parameters.AddWithValue("@idcliente", idCliente);
+                comando.Parameters.AddWithValue("@idprod", idProd);
+                comando.Parameters.AddWithValue("@cantidad", cantidad);
+
+                int resultado = comando.ExecuteNonQuery();
+                Cerrar();
+                if (resultado == 1 && ActualizarStock(idProd,cantidad,stock))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+         }
+
+        private bool ActualizarStock(int idprod, int cantidad,int stock) {
+            SqlCommand comando;
+
+            string update = "update productos set cantidad=@cantidad where idproducto=@idprod";
+            Abrir();
+
+            comando = new SqlCommand(update, conexion);
+            comando.Parameters.AddWithValue("@idprod", idprod);
+            comando.Parameters.AddWithValue("@cantidad", stock - cantidad);
+
+            int resultado = comando.ExecuteNonQuery();
+            Cerrar();
+            if (resultado == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void Limpiar() {
+            textBox_dni.Text = "";
+            label_dniCliente.Text = "-";
+            label_apellidoCliente.Text = "-";
+            label_nroCli.Text = "-";
+            textBox_cantprod.Text = "";
+            label_stock.Text = "-";
+        }
+
+        private bool VerificarCliente() {
+            int num;
+            if (int.TryParse(label_nroCli.Text, out num))
+            {
+                return true;
+            }
             else {
-                MessageBox.Show("La cantidad debe ser un numero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se seleccionó el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        
+        }
+
+        private bool VerificarStock() {
+            int cantidad;
+            int stock;
+
+            if (int.TryParse(textBox_cantprod.Text, out cantidad) && int.Parse(textBox_cantprod.Text) > 0)
+            {
+                if (int.TryParse(label_stock.Text, out stock)) {
+                    if (int.Parse(label_stock.Text) >= int.Parse(textBox_cantprod.Text)) {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("La cantidad a comprar es mayor al stock disponible.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                MessageBox.Show("No se seleccionó el producto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else {
+                MessageBox.Show("La cantidad debe ser un numero o debe ser mayor a 0.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -88,7 +196,7 @@ namespace Equipo2
             SqlDataAdapter da;
             DataTable dt = new DataTable();
 
-            string consulta = "SELECT idProducto, descripcion FROM productos";
+            string consulta = "SELECT idProducto, descripcion FROM productos where cantidad > 0";
             Abrir();
             da = new SqlDataAdapter(consulta, conexion);
             da.Fill(dt);
