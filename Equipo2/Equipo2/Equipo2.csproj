@@ -52,6 +52,18 @@
     <Compile Include="Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cliente_Eliminar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cliente_Eliminar.Designer.cs">
+      <DependentUpon>Cliente_Eliminar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente_Modificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cliente_Modificar.Designer.cs">
+      <DependentUpon>Cliente_Modificar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +96,15 @@
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Clientes.resx">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cliente_Eliminar.resx">
+      <DependentUpon>Cliente_Eliminar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cliente_Modificar.resx">
+      <DependentUpon>Cliente_Modificar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,7 +129,7 @@
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="BaseDeDatos\BaseDeDatos.bak" />
+    <None Include="BaseDeDatos\TiendaInformatica.bak" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

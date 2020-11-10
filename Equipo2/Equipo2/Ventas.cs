@@ -210,8 +210,8 @@ namespace Equipo2
         private void BuscarCliente(string dni) {
             SqlDataAdapter da;
             DataTable dt = new DataTable();
-
-            string consulta = "SELECT idcliente, apellido FROM clientes where dni=@dni";
+            //cambio en el diseño de la tabla clientes, se agrega habilitado para baja logica.
+            string consulta = "SELECT idcliente, apellido FROM clientes where dni=@dni and habilitado=1";
             Abrir();
             da = new SqlDataAdapter(consulta, conexion);
             da.SelectCommand.Parameters.AddWithValue("@dni", dni);
